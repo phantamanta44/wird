@@ -1,0 +1,29 @@
+:grammar = classification + /(\s*\n)+/ grammar
+         = classification
+:classification = ":" classification_name classification_bodies
+
+:classification_bodies = "=" classification_body classification_bodies
+                       = "=" classification_body
+:classification_body = space_retaining_conjunction classification_body
+                     = part classification_body
+                     = space_retaining_conjunction
+                     = part
+:space_retaining_conjunction = "+" part
+
+:part = classification_name
+      = "\"" + literal + "\""
+      = "/" + regexp + "/"
+
+:classification_name = /[\w\-_]+/
+
+:literal = literal_segment + literal
+         = literal_segment
+:literal_segment = str_escape
+                 = /[^\\"]+/
+
+:regexp = regexp_segment + regexp
+        = regexp_segment
+:regexp_segment = str_escape
+                = /[^\\\/]+/
+
+:str_escape = /\\./
