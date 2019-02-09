@@ -1,7 +1,6 @@
 package xyz.phanta.wird.grammar.part;
 
 import xyz.phanta.wird.parser.Consumed;
-import xyz.phanta.wird.parser.ParseFrame;
 import xyz.phanta.wird.parser.Parser;
 import xyz.phanta.wird.parsetree.ParseTreeLeafNode;
 import xyz.phanta.wird.parsetree.ParseTreeNode;
@@ -20,9 +19,9 @@ public class LiteralPart extends ClassificationPart {
 
     @Nullable
     @Override
-    public Consumed consume(Parser parser, ParseFrame frame, int index, String data) {
-        if (data.length() - index < value.length()) return null;
-        String extracted = data.substring(index, index + value.length());
+    public Consumed consume(Parser parser, String data, int from, int to) {
+        if (to - from < value.length()) return null;
+        String extracted = data.substring(from, from + value.length());
         return extracted.equals(value) ? new Consumed(value.length(), () -> new ParseTreeLeafNode(this, value)) : null;
     }
 

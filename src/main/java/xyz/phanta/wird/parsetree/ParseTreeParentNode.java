@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 public class ParseTreeParentNode extends ParseTreeNode {
 
     private final Classification classification;
-    private final int bodyIndex;
+    private int bodyIndex;
     private final boolean retainSpace;
     private final List<ParseTreeNode> children = new ArrayList<>();
 
@@ -26,6 +26,14 @@ public class ParseTreeParentNode extends ParseTreeNode {
 
     public int getBodyIndex() {
         return bodyIndex;
+    }
+
+    public void setBodyIndex(int bodyIndex) {
+        this.bodyIndex = bodyIndex;
+    }
+
+    public boolean doesRetainSpace() {
+        return retainSpace;
     }
 
     public void addChild(ParseTreeNode node) {
@@ -55,6 +63,7 @@ public class ParseTreeParentNode extends ParseTreeNode {
 
     @Override
     public String stringify(boolean space) {
+        if (children.isEmpty()) return "";
         StringBuilder sb = new StringBuilder();
         if (space && !retainSpace) sb.append(" ");
         sb.append(children.get(0).stringify(false));
@@ -64,7 +73,7 @@ public class ParseTreeParentNode extends ParseTreeNode {
 
     @Override
     public String toString() {
-        return classification.getIdentifier() + " {\n"
+        return classification.getDisplayName() + " (" + bodyIndex + ") {\n"
                 + children.stream()
                 .flatMap(s -> Arrays.stream(s.toString().split("\n")))
                 .map(n -> "  " + n)

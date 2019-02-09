@@ -1,7 +1,6 @@
 package xyz.phanta.wird.grammar.part;
 
 import xyz.phanta.wird.parser.Consumed;
-import xyz.phanta.wird.parser.ParseFrame;
 import xyz.phanta.wird.parser.Parser;
 import xyz.phanta.wird.parsetree.ParseTreeNode;
 
@@ -21,7 +20,7 @@ public abstract class ClassificationPart {
     }
 
     @Nullable
-    public abstract Consumed consume(Parser parser, ParseFrame frame, int index, String data);
+    public abstract Consumed consume(Parser parser, String data, int from, int to);
 
     public abstract String stringify(ParseTreeNode node);
 

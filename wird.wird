@@ -13,6 +13,7 @@
 :part = classification_name
       = "\"" + literal + "\""
       = "/" + regexp + "/"
+      = "!"
 
 :classification_name = /[\w\-_]+/
 

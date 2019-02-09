@@ -1,0 +1,5 @@
+:expr = expr "+" var
+      = expr "+" term
+      = term
+:var = /[a-zA-Z]+/
+:term = /\d+/

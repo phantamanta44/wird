@@ -7,13 +7,13 @@ import javax.annotation.Nullable;
 public class ParseFrame {
 
     private final Classification classification;
-    private final int index;
+    private final int bodyIndex;
     @Nullable
     private final ParseFrame parent;
 
-    public ParseFrame(Classification classification, int index, @Nullable ParseFrame parent) {
+    public ParseFrame(Classification classification, int bodyIndex, @Nullable ParseFrame parent) {
         this.classification = classification;
-        this.index = index;
+        this.bodyIndex = bodyIndex;
         this.parent = parent;
     }
 
@@ -21,8 +21,8 @@ public class ParseFrame {
         return classification;
     }
 
-    public int getIndex() {
-        return index;
+    public int getBodyIndex() {
+        return bodyIndex;
     }
 
     @Nullable

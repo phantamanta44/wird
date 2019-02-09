@@ -6,21 +6,18 @@ import xyz.phanta.wird.parser.Parser;
 import xyz.phanta.wird.parsetree.ParseTreeNode;
 
 import javax.annotation.Nullable;
-import java.util.NoSuchElementException;
 
-public class SubclassificationPart extends ClassificationPart {
+public class DirectSubclassificationPart extends ClassificationPart {
 
-    private final String identifier;
+    private final Classification classification;
 
-    public SubclassificationPart(String identifier) {
-        this.identifier = identifier;
+    public DirectSubclassificationPart(Classification classification) {
+        this.classification = classification;
     }
 
     @Nullable
     @Override
     public Consumed consume(Parser parser, String data, int from, int to) {
-        Classification classification = parser.getClassification(identifier);
-        if (classification == null) throw new NoSuchElementException("Unknown classification: " + identifier);
         return parser.parseSubtree(classification, data, from, to, shouldRetainSpace());
     }
 
@@ -31,7 +28,7 @@ public class SubclassificationPart extends ClassificationPart {
 
     @Override
     public String toString() {
-        return identifier;
+        return classification.getDisplayName();
     }
 
 }

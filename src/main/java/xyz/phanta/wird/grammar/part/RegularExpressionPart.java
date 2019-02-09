@@ -1,7 +1,6 @@
 package xyz.phanta.wird.grammar.part;
 
 import xyz.phanta.wird.parser.Consumed;
-import xyz.phanta.wird.parser.ParseFrame;
 import xyz.phanta.wird.parser.Parser;
 import xyz.phanta.wird.parsetree.ParseTreeLeafNode;
 import xyz.phanta.wird.parsetree.ParseTreeNode;
@@ -22,8 +21,8 @@ public class RegularExpressionPart extends ClassificationPart {
 
     @Nullable
     @Override
-    public Consumed consume(Parser parser, ParseFrame frame, int index, String data) {
-        Matcher m = pattern.matcher(data.substring(index));
+    public Consumed consume(Parser parser, String data, int from, int to) {
+        Matcher m = pattern.matcher(data.substring(from, to));
         if (!m.find()) return null;
         String match = m.group(0);
         return new Consumed(match.length(), () -> new ParseTreeLeafNode(this, match));

@@ -1,25 +1,31 @@
-package xyz.phanta.wird.grammar;
+package xyz.phanta.wird.grammar.body;
 
 import xyz.phanta.wird.grammar.part.ClassificationPart;
+import xyz.phanta.wird.parsetree.ParseTreeParentNode;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class ClassificationBody {
+public abstract class ClassificationBody {
 
+    private final int bodyIndex;
     private final List<ClassificationPart> parts;
 
-    public ClassificationBody(List<ClassificationPart> parts) {
+    ClassificationBody(int bodyIndex, List<ClassificationPart> parts) {
+        this.bodyIndex = bodyIndex;
         this.parts = parts;
     }
 
-    public ClassificationBody(ClassificationPart... parts) {
-        this(Arrays.asList(parts));
+    public int getBodyIndex() {
+        return bodyIndex;
     }
 
     public List<ClassificationPart> getParts() {
         return parts;
+    }
+
+    public void finalize(ParseTreeParentNode node) {
+        // NO-OP
     }
 
     @Override
