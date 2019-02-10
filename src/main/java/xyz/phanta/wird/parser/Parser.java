@@ -83,12 +83,9 @@ public class Parser {
         ClassificationPart part = parts.get(partIndex);
         if (config.shouldDebugPrint()) debug(level, "Consume part: " + part);
 
-        int voidedSpace = 0;
+        int initialFrom = from;
         if (!part.shouldRetainSpace()) {
-            while (from < to && Character.isWhitespace(data.charAt(from))) {
-                ++from;
-                ++voidedSpace;
-            }
+            while (from < to && Character.isWhitespace(data.charAt(from))) ++from;
         }
 
         Supplier<? extends Consumed<? extends ParseTreeNode>> results = part.consume(this, data, from, to, level);
@@ -98,7 +95,7 @@ public class Parser {
         }
 
         int finalFrom = from;
-        int finalVoidedSpace = voidedSpace;
+        int finalVoidedSpace = from - initialFrom;
         return new DelegateSupplier<>(() -> {
             Consumed<? extends ParseTreeNode> result;
             while ((result = results.get()) != null) {
