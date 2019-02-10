@@ -1,9 +1,11 @@
 plugins {
     id 'java'
+    id 'maven'
+    id 'maven-publish'
 }
 
 group 'xyz.phanta.wird'
-version '1.0.1-SNAPSHOT'
+version '1.0.2-SNAPSHOT'
 
 sourceCompatibility = 1.8
 
@@ -22,5 +24,14 @@ jar {
         attributes (
             'Main-Class': 'xyz.phanta.wird.Main'
         )
+    }
+}
+
+publishing {
+    publications {
+        all(MavenPublication) {
+            artifact jar
+            artifactId = rootProject.name
+        }
     }
 }

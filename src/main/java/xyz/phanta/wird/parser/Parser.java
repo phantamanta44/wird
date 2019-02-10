@@ -156,9 +156,8 @@ public class Parser {
         @Override
         public ParseTreeParentNode get() {
             if (!finalized) {
-                body.finalize(node);
-                config.getFinalizers(node.getClassification().getIdentifier(), node.getBodyIndex())
-                        .forEach(f -> f.finalize(node));
+                finalized = true;
+                body.finalize(node, config);
             }
             return node;
         }

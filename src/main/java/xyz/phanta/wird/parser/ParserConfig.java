@@ -58,7 +58,7 @@ public class ParserConfig {
             List<List<ClassificationFinalizer>> bodyMapping = classBodyMapping.get(identifier);
             if (bodyMapping == null || bodyIndex >= bodyMapping.size()) return globalFinalizers;
             List<ClassificationFinalizer> finalizers = bodyMapping.get(bodyIndex);
-            return finalizers != null ? new ConcatenatedListView<>(globalFinalizers, finalizers) : globalFinalizers;
+            return finalizers != null ? new ConcatenatedListView<>(finalizers, globalFinalizers) : globalFinalizers;
         }
 
         private void put(String identifier, int bodyIndex, ClassificationFinalizer[] finalizers) {

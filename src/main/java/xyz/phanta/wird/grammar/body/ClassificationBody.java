@@ -1,6 +1,7 @@
 package xyz.phanta.wird.grammar.body;
 
 import xyz.phanta.wird.grammar.part.ClassificationPart;
+import xyz.phanta.wird.parser.ParserConfig;
 import xyz.phanta.wird.parsetree.ParseTreeParentNode;
 
 import java.util.List;
@@ -24,8 +25,9 @@ public abstract class ClassificationBody {
         return parts;
     }
 
-    public void finalize(ParseTreeParentNode node) {
-        // NO-OP
+    public void finalize(ParseTreeParentNode node, ParserConfig config) {
+        config.getFinalizers(node.getClassification().getIdentifier(), node.getBodyIndex())
+                .forEach(f -> f.finalize(node));
     }
 
     @Override

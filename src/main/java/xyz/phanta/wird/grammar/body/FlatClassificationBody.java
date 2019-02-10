@@ -1,12 +1,12 @@
 package xyz.phanta.wird.grammar.body;
 
 import xyz.phanta.wird.grammar.part.ClassificationPart;
+import xyz.phanta.wird.parser.ParserConfig;
 import xyz.phanta.wird.parsetree.ParseTreeNode;
 import xyz.phanta.wird.parsetree.ParseTreeParentNode;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 
 public class FlatClassificationBody extends ClassificationBody {
 
@@ -25,7 +25,7 @@ public class FlatClassificationBody extends ClassificationBody {
     }
 
     @Override
-    public void finalize(ParseTreeParentNode node) {
+    public void finalize(ParseTreeParentNode node, ParserConfig config) {
         if (recursive) {
             List<ParseTreeNode> children = node.getChildren();
             int bodyIndex = node.getBodyIndex();
@@ -40,6 +40,7 @@ public class FlatClassificationBody extends ClassificationBody {
                 terminal.getChildren().addAll(terminalNodes);
                 terminalNodes.clear();
                 children.add(0, terminal);
+                super.finalize(terminal, config);
 
                 bodyIndex = tail.getBodyIndex();
                 retainSpace = tail.doesRetainSpace();
@@ -49,6 +50,7 @@ public class FlatClassificationBody extends ClassificationBody {
             node.setBodyIndex(bodyIndex);
             children.remove(children.size() - 1);
         }
+        super.finalize(node, config);
     }
 
 }

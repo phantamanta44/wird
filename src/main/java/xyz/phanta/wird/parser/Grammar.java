@@ -4,6 +4,7 @@ import xyz.phanta.wird.grammar.Classification;
 import xyz.phanta.wird.grammar.body.ClassificationBody;
 import xyz.phanta.wird.grammar.body.FlatClassificationBody;
 import xyz.phanta.wird.grammar.body.LeftRecursiveClassificationBody;
+import xyz.phanta.wird.grammar.body.NoopClassificationBody;
 import xyz.phanta.wird.grammar.part.*;
 import xyz.phanta.wird.parser.finalizer.ClassificationFinalizer;
 import xyz.phanta.wird.parser.finalizer.Finalizers;
@@ -178,7 +179,7 @@ public class Grammar {
             .withFinalizers("classification", Finalizers.omit(0), Finalizers.flatten(0))
 
             .withFinalizers("classification_bodies", Finalizers.omit(0))
-            .withFinalizers("classification_bodies", 0, Finalizers.flatten(1))
+            .withFinalizers("classification_bodies", 0, Finalizers.flatten(2))
 
             .withFinalizers("classification_body", 0, Finalizers.flatten(1), Finalizers.flatten(0))
             .withFinalizers("classification_body", 1, Finalizers.flatten(1))
@@ -233,7 +234,7 @@ public class Grammar {
                     body.markRecursive();
                     body.getParts().add(new DirectSubclassificationPart(recursiveClassification));
                 }
-                recursiveBodies.add(new FlatClassificationBody(-1, new EmptyPart()));
+                recursiveBodies.add(new NoopClassificationBody());
                 classifications.put(identifier + "'", recursiveClassification);
             }
             classifications.put(identifier, new Classification(identifier, bodies));
