@@ -4,8 +4,10 @@ import xyz.phanta.wird.parser.Consumed;
 import xyz.phanta.wird.parser.Parser;
 import xyz.phanta.wird.parsetree.ParseTreeLeafNode;
 import xyz.phanta.wird.parsetree.ParseTreeNode;
+import xyz.phanta.wird.util.SingleSupplier;
 
 import javax.annotation.Nullable;
+import java.util.function.Supplier;
 
 public class LiteralPart extends ClassificationPart {
 
@@ -19,10 +21,12 @@ public class LiteralPart extends ClassificationPart {
 
     @Nullable
     @Override
-    public Consumed consume(Parser parser, String data, int from, int to) {
+    public Supplier<? extends Consumed<? extends ParseTreeNode>> consume(Parser parser, String data, int from, int to, int level) {
         if (to - from < value.length()) return null;
         String extracted = data.substring(from, from + value.length());
-        return extracted.equals(value) ? new Consumed(value.length(), () -> new ParseTreeLeafNode(this, value)) : null;
+        return extracted.equals(value)
+                ? new SingleSupplier<>(new Consumed<>(value.length(), () -> new ParseTreeLeafNode(this, value)))
+                : null;
     }
 
     @Override

@@ -36,6 +36,10 @@ public class ParseTreeParentNode extends ParseTreeNode {
         return retainSpace;
     }
 
+    public void prependChild(ParseTreeNode node) {
+        children.add(0, node);
+    }
+
     public void addChild(ParseTreeNode node) {
         children.add(node);
     }

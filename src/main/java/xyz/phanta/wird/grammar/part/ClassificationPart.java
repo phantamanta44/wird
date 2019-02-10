@@ -5,6 +5,7 @@ import xyz.phanta.wird.parser.Parser;
 import xyz.phanta.wird.parsetree.ParseTreeNode;
 
 import javax.annotation.Nullable;
+import java.util.function.Supplier;
 
 public abstract class ClassificationPart {
 
@@ -20,7 +21,8 @@ public abstract class ClassificationPart {
     }
 
     @Nullable
-    public abstract Consumed consume(Parser parser, String data, int from, int to);
+    public abstract Supplier<? extends Consumed<? extends ParseTreeNode>> consume(
+            Parser parser, String data, int from, int to, int level);
 
     public abstract String stringify(ParseTreeNode node);
 

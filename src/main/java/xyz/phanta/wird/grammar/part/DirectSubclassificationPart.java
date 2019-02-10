@@ -6,6 +6,7 @@ import xyz.phanta.wird.parser.Parser;
 import xyz.phanta.wird.parsetree.ParseTreeNode;
 
 import javax.annotation.Nullable;
+import java.util.function.Supplier;
 
 public class DirectSubclassificationPart extends ClassificationPart {
 
@@ -17,8 +18,8 @@ public class DirectSubclassificationPart extends ClassificationPart {
 
     @Nullable
     @Override
-    public Consumed consume(Parser parser, String data, int from, int to) {
-        return parser.parseSubtree(classification, data, from, to, shouldRetainSpace());
+    public Supplier<? extends Consumed<? extends ParseTreeNode>> consume(Parser parser, String data, int from, int to, int level) {
+        return parser.parseSubtree(classification, data, from, to, shouldRetainSpace(), level + 1);
     }
 
     @Override

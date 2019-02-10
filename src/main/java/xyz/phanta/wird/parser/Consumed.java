@@ -5,23 +5,23 @@ import xyz.phanta.wird.parsetree.ParseTreeNode;
 import javax.annotation.Nullable;
 import java.util.function.Supplier;
 
-public class Consumed {
+public class Consumed<T extends ParseTreeNode> {
 
     private final int lengthConsumed;
     @Nullable
-    private final Supplier<ParseTreeNode> nodeProducer;
+    private final Supplier<? extends T> nodeProducer;
 
-    public Consumed(int lengthConsumed, @Nullable Supplier<ParseTreeNode> nodeProducer) {
+    public Consumed(int lengthConsumed, @Nullable Supplier<? extends T> nodeProducer) {
         this.lengthConsumed = lengthConsumed;
         this.nodeProducer = nodeProducer;
     }
 
-    public int getLengthConsumed() {
+    int getLengthConsumed() {
         return lengthConsumed;
     }
 
     @Nullable
-    public ParseTreeNode produceNode() {
+    T produceNode() {
         return nodeProducer != null ? nodeProducer.get() : null;
     }
 
